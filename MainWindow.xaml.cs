@@ -34,7 +34,8 @@ namespace WpfAppAlpha
             switch (role)
             {
                 case "Student":
-                    //newWindow = new StudentWindow(); // Ensure you have created a StudentWindow.xaml
+                    int test_sno = 1; // Replace this with the actual student number
+                    newWindow = new StudentWindow(test_sno); // Ensure you have created a StudentWindow.xaml
                     break;
                 case "Teacher":
                     //newWindow = new TeacherWindow(); // Ensure you have created a TeacherWindow.xaml
