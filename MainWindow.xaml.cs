@@ -38,7 +38,8 @@ namespace WpfAppAlpha
                     newWindow = new StudentWindow(test_sno); // Ensure you have created a StudentWindow.xaml
                     break;
                 case "Teacher":
-                    //newWindow = new TeacherWindow(); // Ensure you have created a TeacherWindow.xaml
+                    int test_tno = 1; // Replace this with the actual teacher number
+                    newWindow = new TeacherWindow(test_tno); // Ensure you have created a TeacherWindow.xaml
                     break;
                 case "Manager":
                     newWindow = new ManagerWindow();
