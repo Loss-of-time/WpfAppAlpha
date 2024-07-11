@@ -1,0 +1,55 @@
+﻿<Window x:Class="WpfAppAlpha.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppAlpha"
+        mc:Ignorable="d"
+        Title="教学管理信息系统---登录" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,10">
+            <TextBlock Text="教学管理信息系统" FontSize="24" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="用户名：" VerticalAlignment="Center" Margin="5"/>
+            <TextBox Name="UsernameTextBox" Grid.Column="1" Width="200" Margin="5"/>
+
+            <TextBlock Text="密 码：" VerticalAlignment="Center" Margin="5" Grid.Row="1"/>
+            <PasswordBox Name="PasswordBox" Grid.Column="1" Width="200" Margin="5" Grid.Row="1"/>
+
+            <TextBlock Text="忘记密码?" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Grid.Row="2"/>
+
+            <TextBlock Text="身 份：" VerticalAlignment="Center" Margin="5" Grid.Row="3"/>
+            <StackPanel Name="RolePanel" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="5" Grid.Row="3">
+                <RadioButton Name="StudentRadioButton" Content="学生" GroupName="Role" Margin="0,0,10,0"/>
+                <RadioButton Name="TeacherRadioButton" Content="教师" GroupName="Role" Margin="0,0,10,0" IsChecked="True"/>
+                <RadioButton Name="AdminRadioButton" Content="管理员" GroupName="Role"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="4" Grid.ColumnSpan="2" Margin="5">
+                <Button Content="注销" Width="80" Margin="10"/>
+                <Button Name="LoginButton" Content="登录" Width="80" Margin="10" Click="LoginButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
