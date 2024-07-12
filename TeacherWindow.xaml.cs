@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
-using static WpfAppAlpha.GradeEntryWindow;
+using static WpfAppAlpha.TeacherScoreQueryWindow;
 
 namespace WpfAppAlpha
 {
@@ -90,7 +90,7 @@ namespace WpfAppAlpha
 
         private void OpenGradeEntryWindow()  // 新添加的方法
         {
-            var gradeEntryWindow = new GradeEntryWindow(_tno);
+            var gradeEntryWindow = new TeacherScoreQueryWindow(_tno);
             gradeEntryWindow.ShowDialog();
         }
 
