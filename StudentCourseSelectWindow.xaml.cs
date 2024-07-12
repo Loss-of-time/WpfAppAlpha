@@ -36,12 +36,12 @@ namespace WpfAppAlpha
                                    join c in _context.Course on cs.Cno equals c.Cno
                                    join t in _context.Teacher on c.Tno equals t.Tno
                                    where cs.Sno == Sno
-                                   select new 
+                                   select new CourseView
                                    {
-                                       c.Cno,
-                                       c.Cname,
-                                       c.Ccredit,
-                                       t.Tname
+                                       Cno = c.Cno,
+                                       Cname = c.Cname,
+                                       Ccredit = c.Ccredit,
+                                       Tname = t.Tname,
                                    }).ToList();
 
             var selectedCourseIds = selectedCourses.Select(c => c.Cno).ToList();
@@ -50,12 +50,12 @@ namespace WpfAppAlpha
                 join c in _context.Course on cs.Cno equals c.Cno
                 join t in _context.Teacher on c.Tno equals t.Tno
                 where !selectedCourseIds.Contains(c.Cno)
-                select new
+                select new CourseView
                 {
-                    c.Cno,
-                    c.Cname,
-                    c.Ccredit,
-                    t.Tname,
+                    Cno = c.Cno,
+                    Cname = c.Cname,
+                    Ccredit = c.Ccredit,
+                    Tname = t.Tname,
                 }).ToList();
 
             SelectedCoursesDataGrid.ItemsSource = selectedCourses;
@@ -64,7 +64,7 @@ namespace WpfAppAlpha
 
         private void SelectButton_Click(object sender, RoutedEventArgs e)
         {
-            var selectedCourse = (Course)AvailableCoursesDataGrid.SelectedItem;
+            var selectedCourse = (CourseView)AvailableCoursesDataGrid.SelectedItem;
             if (selectedCourse != null)
             {
                 var courseSelect = new CourseSelect { Cno = selectedCourse.Cno, Sno = Sno, CSstatus = 1 };
@@ -76,7 +76,7 @@ namespace WpfAppAlpha
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
-            var selectedCourse = (Course)SelectedCoursesDataGrid.SelectedItem;
+            var selectedCourse = (CourseView)SelectedCoursesDataGrid.SelectedItem;
             if (selectedCourse != null)
             {
                 var courseSelect = _context.CourseSelect.FirstOrDefault(cs => cs.Cno == selectedCourse.Cno && cs.Sno == Sno);
@@ -92,7 +92,7 @@ namespace WpfAppAlpha
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             string searchText = SearchTextBox.Text;
-            string searchType = (SearchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            string? searchType = (SearchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
 
             //var selectedCourses = _context.CourseSelect
             //    .Include(cs => cs.Course)
@@ -110,12 +110,12 @@ namespace WpfAppAlpha
                                          join c in _context.Course on cs.Cno equals c.Cno
                                          join t in _context.Teacher on c.Tno equals t.Tno
                                          where !selectedCourseIds.Contains(c.Cno)
-                                         select new
+                                         select new CourseView
                                          {
-                                             c.Cno,
-                                             c.Cname,
-                                             c.Ccredit,
-                                             t.Tname,
+                                             Cno = c.Cno,
+                                             Cname = c.Cname,
+                                             Ccredit = c.Ccredit,
+                                             Tname = t.Tname,
                                          }).ToList();
 
             if (string.IsNullOrWhiteSpace(searchText))
@@ -135,5 +135,13 @@ namespace WpfAppAlpha
                 AvailableCoursesDataGrid.ItemsSource = searchedCourses;
             }
         }
+    }
+
+    public class CourseView
+    {
+        public int Cno { set; get; }
+        public string Cname { set; get; }
+        public float Ccredit { set; get; }
+        public string Tname { set; get; }
     }
 }
