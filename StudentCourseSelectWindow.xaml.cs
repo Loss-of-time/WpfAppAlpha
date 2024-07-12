@@ -46,10 +46,17 @@ namespace WpfAppAlpha
 
             var selectedCourseIds = selectedCourses.Select(c => c.Cno).ToList();
 
-            var availableCourses = _context.Course
-                .Include(c => c.Teacher)
-                .Where(c => !selectedCourseIds.Contains(c.Cno))
-                .ToList();
+            var availableCourses = (from cs in _context.CourseSelect
+                join c in _context.Course on cs.Cno equals c.Cno
+                join t in _context.Teacher on c.Tno equals t.Tno
+                where !selectedCourseIds.Contains(c.Cno)
+                select new
+                {
+                    c.Cno,
+                    c.Cname,
+                    c.Ccredit,
+                    t.Tname,
+                }).ToList();
 
             SelectedCoursesDataGrid.ItemsSource = selectedCourses;
             AvailableCoursesDataGrid.ItemsSource = availableCourses;
