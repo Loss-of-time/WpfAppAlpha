@@ -1,0 +1,42 @@
+﻿<Window x:Class="WpfAppAlpha.StudentCourseSelectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppAlpha"
+        mc:Ignorable="d"
+        Title="StudentCourseSelectWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Selected Courses DataGrid -->
+        <DataGrid x:Name="SelectedCoursesDataGrid" Grid.Row="0" Grid.Column="0" Margin="10" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Course No" Binding="{Binding Cno}" Width="*" />
+                <DataGridTextColumn Header="Course Name" Binding="{Binding Cname}" Width="*" />
+                <DataGridTextColumn Header="Credits" Binding="{Binding Ccredit}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Available Courses DataGrid -->
+        <DataGrid x:Name="AvailableCoursesDataGrid" Grid.Row="0" Grid.Column="1" Margin="10" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Course No" Binding="{Binding Cno}" Width="*" />
+                <DataGridTextColumn Header="Course Name" Binding="{Binding Cname}" Width="*" />
+                <DataGridTextColumn Header="Credits" Binding="{Binding Ccredit}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Buttons -->
+        <Button x:Name="SelectButton" Content="选择" Grid.Row="1" Grid.Column="0" Width="100" Height="30" Margin="10" HorizontalAlignment="Left" Click="SelectButton_Click"/>
+        <Button x:Name="RemoveButton" Content="移除" Grid.Row="1" Grid.Column="0" Width="100" Height="30" Margin="120,10,10,10" HorizontalAlignment="Left" Click="RemoveButton_Click"/>
+        <Button x:Name="SearchButton" Content="搜索" Grid.Row="1" Grid.Column="1" Width="100" Height="30" Margin="10" HorizontalAlignment="Left" Click="SearchButton_Click"/>
+    </Grid>
+</Window>

@@ -16,7 +16,7 @@
         <!-- Left Panel -->
         <StackPanel Grid.Column="0" Margin="10">
             <TextBlock Text="学生界面" FontWeight="Bold" FontSize="20" Margin="0,0,0,20"/>
-            <Button Content="选课系统" Width="150" Height="50" Margin="0,0,0,10"/>
+            <Button Name="CourseSelectButton" Content="选课系统" Width="150" Height="50" Margin="0,0,0,10" Click="CourseSelectButton_Click"/>
             <Button Content="成绩查询系统" Width="150" Height="50" Margin="0,0,0,10"/>
             <Button Content="个人信息" Width="150" Height="50" Margin="0,0,0,10"/>
             <Button Content="查询系统" Width="150" Height="50" Margin="0,0,0,10"/>

@@ -41,5 +41,13 @@ namespace WpfAppAlpha
                           .ToList();
             CourseScheduleDataGrid.ItemsSource = courses;
         }
+
+        private void CourseSelectButton_Click(object sender, RoutedEventArgs e)
+        {
+            StudentCourseSelectWindow studentCourseSelectWindow = new StudentCourseSelectWindow(sno);
+            studentCourseSelectWindow.Closed += (s, args) => this.Show();
+            this.Hide();
+            studentCourseSelectWindow.Show();
+        }
     }
 }
