@@ -35,8 +35,8 @@
         </DataGrid>
 
         <!-- Buttons -->
-        <Button x:Name="SelectButton" Content="选择" Grid.Row="1" Grid.Column="0" Width="100" Height="30" Margin="10" HorizontalAlignment="Left" Click="SelectButton_Click"/>
-        <Button x:Name="RemoveButton" Content="移除" Grid.Row="1" Grid.Column="0" Width="100" Height="30" Margin="120,10,10,10" HorizontalAlignment="Left" Click="RemoveButton_Click"/>
+        <Button x:Name="SelectButton" Content="选择" Grid.Row="1" Grid.Column="1" Width="100" Height="30" Margin="120,10,10,10" HorizontalAlignment="Left" Click="SelectButton_Click"/>
         <Button x:Name="SearchButton" Content="搜索" Grid.Row="1" Grid.Column="1" Width="100" Height="30" Margin="10" HorizontalAlignment="Left" Click="SearchButton_Click"/>
+        <Button x:Name="RemoveButton" Content="移除" Grid.Row="1" Grid.Column="0" Width="100" Height="30" Margin="10" HorizontalAlignment="Left" Click="RemoveButton_Click"/>
     </Grid>
 </Window>
