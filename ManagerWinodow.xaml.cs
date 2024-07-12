@@ -54,14 +54,21 @@ namespace WpfAppAlpha
             {
                 if (int.TryParse(tag.Substring(8), out int sno))
                 {
-                    var courses = _context.CourseSelect
-                                          .Where(cs => cs.Sno == sno)
-                                          .Select(cs => cs.Cno)
-                                          .Join(_context.Course,
-                                                cno => cno,
-                                                course => course.Cno,
-                                                (cno, course) => course)
-                                          .ToList();
+                    var courses = (from cs in _context.CourseSelect
+                            where cs.Sno == sno
+                            join c in _context.Course on cs.Cno equals c.Cno
+                            join t in _context.Teacher on c.Tno equals t.Tno
+                            select new
+                            {
+                                c.Cname,
+                                c.Ccredit,
+                                c.Cstatus,
+                                c.Ctype,
+                                cs.CSscore,
+                                cs.CSstatus,
+                                t.Tname
+                            }
+                        ).ToList();
                     DataGridData.ItemsSource = courses;
                 }
             }
