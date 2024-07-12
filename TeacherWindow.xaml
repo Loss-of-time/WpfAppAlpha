@@ -20,7 +20,7 @@
         <StackPanel Grid.Column="0" Margin="10">
             <TextBlock Text="我的课程管理" FontWeight="Bold" FontSize="16" Margin="0,0,0,20"/>
             <Button Content="开课课程信息" Width="150" Height="50" Margin="0,0,0,10" Command="{Binding LoadCoursesCommand}"/>
-            <Button Content="成绩录入系统" Width="150" Height="50" Margin="0,0,0,10"/>
+            <Button Content="成绩录入系统" Width="150" Height="50" Margin="0,0,0,10" Command="{Binding OpenGradeEntryCommand}"/>
             <Button Content="个人信息" Width="150" Height="50" Margin="0,20,0,10"/>
             <Button Content="查询系统" Width="150" Height="50" Margin="0,0,0,10"/>
         </StackPanel>
