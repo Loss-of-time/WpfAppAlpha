@@ -49,5 +49,22 @@ namespace WpfAppAlpha
             this.Hide();
             studentCourseSelectWindow.Show();
         }
+        
+        private void ScoreQueryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var coursesWithGrades = _context.CourseSelect
+                .Where(cs => cs.Sno == sno)
+                .Select(cs => new
+                {
+                    cs.Course.Cno,
+                    cs.Course.Cname,
+                    cs.CSstatus,
+                    cs.Course.Ccredit,
+                    cs.CSscore
+                })
+                .ToList();
+            CourseScheduleDataGrid.ItemsSource = coursesWithGrades;
+        }
+
     }
 }

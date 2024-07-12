@@ -17,9 +17,9 @@
         <StackPanel Grid.Column="0" Margin="10">
             <TextBlock Text="学生界面" FontWeight="Bold" FontSize="20" Margin="0,0,0,20"/>
             <Button Name="CourseSelectButton" Content="选课系统" Width="150" Height="50" Margin="0,0,0,10" Click="CourseSelectButton_Click"/>
-            <Button Content="成绩查询系统" Width="150" Height="50" Margin="0,0,0,10"/>
+            <Button Name="CourseQueryButton" Content="课程查询" Width="150" Height="50" HorizontalAlignment="Center" Margin="0,0,0,10" Click="CourseQueryButton_Click"/>
+            <Button Content="成绩查询" Width="150" Height="50" Margin="0,0,0,10" Click="ScoreQueryButton_Click"/>
             <Button Content="个人信息" Width="150" Height="50" Margin="0,0,0,10"/>
-            <Button Content="查询系统" Width="150" Height="50" Margin="0,0,0,10"/>
         </StackPanel>
 
         <!-- Center Panel -->
@@ -29,11 +29,12 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="课程号" Binding="{Binding Cno}" Width="*"/>
                     <DataGridTextColumn Header="课程名" Binding="{Binding Cname}" Width="*"/>
-                    <DataGridTextColumn Header="状态" Binding="{Binding Cstatus}" Width="*"/>
+                    <DataGridTextColumn Header="状态" Binding="{Binding CSstatus}" Width="*"/>
                     <DataGridTextColumn Header="学分" Binding="{Binding Ccredit}" Width="*"/>
+                    <DataGridTextColumn Header="成绩" Binding="{Binding CSscore}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Name="CourseQueryButton" Content="查询课程" Width="150" Height="50" HorizontalAlignment="Center" Margin="0,20,0,0" Click="CourseQueryButton_Click"/>
+
         </StackPanel>
 
         <!-- Right Panel -->
