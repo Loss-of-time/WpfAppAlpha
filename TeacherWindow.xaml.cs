@@ -6,9 +6,31 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
+using static WpfAppAlpha.GradeEntryWindow;
 
 namespace WpfAppAlpha
 {
+    public class RelayCommand : ICommand
+    {
+        private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
+
+        public RelayCommand(Action execute, Func<bool> canExecute = null)
+        {
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
+        }
+
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
+        public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
+
+        public void Execute(object parameter) => _execute();
+    }
     public partial class TeacherWindow : Window, INotifyPropertyChanged
     {
         private SchoolContext _context;
@@ -26,6 +48,7 @@ namespace WpfAppAlpha
         }
 
         public ICommand LoadCoursesCommand { get; private set; }
+        public ICommand OpenGradeEntryCommand { get; private set; }  // 新添加的命令
 
         public TeacherWindow(int tno)
         {
@@ -34,6 +57,7 @@ namespace WpfAppAlpha
             DataContext = this;
             _context = new SchoolContext();
             LoadCoursesCommand = new RelayCommand(LoadCourses);
+            OpenGradeEntryCommand = new RelayCommand(OpenGradeEntryWindow);  // 初始化新命令
             Courses = new ObservableCollection<CourseViewModel>();
         }
 
@@ -64,6 +88,12 @@ namespace WpfAppAlpha
             }
         }
 
+        private void OpenGradeEntryWindow()  // 新添加的方法
+        {
+            var gradeEntryWindow = new GradeEntryWindow(_tno);
+            gradeEntryWindow.ShowDialog();
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -72,33 +102,5 @@ namespace WpfAppAlpha
         }
     }
 
-    public class CourseViewModel
-    {
-        public int Cno { get; set; }
-        public string Cname { get; set; }
-        public string Cstatus { get; set; }
-        public float Ccredit { get; set; }
-    }
-
-    public class RelayCommand : ICommand
-    {
-        private readonly Action _execute;
-        private readonly Func<bool> _canExecute;
-
-        public RelayCommand(Action execute, Func<bool> canExecute = null)
-        {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            _canExecute = canExecute;
-        }
-
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-
-        public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
-
-        public void Execute(object parameter) => _execute();
-    }
+    // CourseViewModel 和 RelayCommand 类保持不变
 }
