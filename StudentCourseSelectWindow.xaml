@@ -28,15 +28,14 @@
         </DataGrid>
 
         <!-- Available Courses DataGrid -->
-        <!--<DataGrid x:Name="AvailableCoursesDataGrid" Grid.Row="0" Grid.Column="1" Margin="10" AutoGenerateColumns="False" IsReadOnly="True">
+        <DataGrid x:Name="AvailableCoursesDataGrid" Grid.Row="0" Grid.Column="1" Margin="10" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Course No" Binding="{Binding Cno}" Width="*" />
                 <DataGridTextColumn Header="Course Name" Binding="{Binding Cname}" Width="*" />
                 <DataGridTextColumn Header="Credits" Binding="{Binding Ccredit}" Width="*" />
-                <DataGridTextColumn Header="Teacher" Binding="{Binding Teacher}" Width="*" />
+                <DataGridTextColumn Header="Teacher" Binding="{Binding Tname}" Width="*" />
             </DataGrid.Columns>
-        </DataGrid>-->
-        <DataGrid x:Name="AvailableCoursesDataGrid" Grid.Row="0" Grid.Column="1" Margin="10" />
+        </DataGrid>
         <!-- Buttons -->
         <Button x:Name="SelectButton" Content="选择" Grid.Row="1" Grid.Column="1" Width="100" Height="30" Margin="120,10,10,10" HorizontalAlignment="Left" Click="SelectButton_Click"/>
         <Button x:Name="SearchButton" Content="搜索" Grid.Row="1" Grid.Column="1" Width="100" Height="30" Margin="10" HorizontalAlignment="Left" Click="SearchButton_Click"/>

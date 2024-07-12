@@ -38,10 +38,10 @@ namespace WpfAppAlpha
                                    where cs.Sno == Sno
                                    select new 
                                    {
-                                       Cno = c.Cno,
-                                       Cname = c.Cname,
-                                       Ccredit = c.Ccredit,
-                                       Tname = t.Tname
+                                       c.Cno,
+                                       c.Cname,
+                                       c.Ccredit,
+                                       t.Tname
                                    }).ToList();
 
             var selectedCourseIds = selectedCourses.Select(c => c.Cno).ToList();

@@ -53,6 +53,7 @@ public class CourseSelect
     public int Sno { get; set; }
     public Student Student { get; set; }
     public int CSstatus { get; set; }
+    public float CSscore { get; set; }
 }
 
 public class SchoolContext : DbContext
