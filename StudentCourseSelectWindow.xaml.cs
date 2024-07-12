@@ -29,24 +29,31 @@ namespace WpfAppAlpha
             _context = new SchoolContext();
             LoadCourses();
         }
+
         private void LoadCourses()
         {
-            var selectedCourses = _context.CourseSelect
-                .Include(cs => cs.Course)
-                .Where(cs => cs.Sno == 1)
-                .Select(cs => cs.Course)
-                .ToList();
+            var selectedCourses = (from cs in _context.CourseSelect
+                                   join c in _context.Course on cs.Cno equals c.Cno
+                                   join t in _context.Teacher on c.Tno equals t.Tno
+                                   where cs.Sno == Sno
+                                   select new 
+                                   {
+                                       Cno = c.Cno,
+                                       Cname = c.Cname,
+                                       Ccredit = c.Ccredit,
+                                       Tname = t.Tname
+                                   }).ToList();
 
             var selectedCourseIds = selectedCourses.Select(c => c.Cno).ToList();
 
             var availableCourses = _context.Course
+                .Include(c => c.Teacher)
                 .Where(c => !selectedCourseIds.Contains(c.Cno))
                 .ToList();
 
             SelectedCoursesDataGrid.ItemsSource = selectedCourses;
             AvailableCoursesDataGrid.ItemsSource = availableCourses;
         }
-
 
         private void SelectButton_Click(object sender, RoutedEventArgs e)
         {
@@ -77,8 +84,49 @@ namespace WpfAppAlpha
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODO
-            // Implement search functionality (e.g., show a new window with search options)
+            string searchText = SearchTextBox.Text;
+            string searchType = (SearchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+
+            //var selectedCourses = _context.CourseSelect
+            //    .Include(cs => cs.Course)
+            //    .ThenInclude(c => c.Teacher)
+            //    .Where(cs => cs.Sno == Sno)
+            //    .Select(cs => cs.Course)
+            //    .ToList();
+            var selectedCourseIds = (from cs in _context.CourseSelect
+                                   join c in _context.Course on cs.Cno equals c.Cno
+                                   where cs.Sno == Sno
+                                   select c.Cno
+                                   ).ToList();
+
+            var availableCoursesQuery = (from cs in _context.CourseSelect
+                                         join c in _context.Course on cs.Cno equals c.Cno
+                                         join t in _context.Teacher on c.Tno equals t.Tno
+                                         where !selectedCourseIds.Contains(c.Cno)
+                                         select new
+                                         {
+                                             c.Cno,
+                                             c.Cname,
+                                             c.Ccredit,
+                                             t.Tname,
+                                         }).ToList();
+
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                AvailableCoursesDataGrid.ItemsSource = availableCoursesQuery.ToList();
+                return;
+            }
+
+            if (searchType == "按课程名")
+            {
+                var searchedCourses = availableCoursesQuery.Where(c => c.Cname.Contains(searchText)).ToList();
+                AvailableCoursesDataGrid.ItemsSource = searchedCourses;
+            }
+            else if (searchType == "按教师名")
+            {
+                var searchedCourses = availableCoursesQuery.Where(c => c.Tname.Contains(searchText)).ToList();
+                AvailableCoursesDataGrid.ItemsSource = searchedCourses;
+            }
         }
     }
 }

@@ -14,6 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="4*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!-- Selected Courses DataGrid -->
@@ -22,21 +23,30 @@
                 <DataGridTextColumn Header="Course No" Binding="{Binding Cno}" Width="*" />
                 <DataGridTextColumn Header="Course Name" Binding="{Binding Cname}" Width="*" />
                 <DataGridTextColumn Header="Credits" Binding="{Binding Ccredit}" Width="*" />
+                <DataGridTextColumn Header="Teacher" Binding="{Binding Tname}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
 
         <!-- Available Courses DataGrid -->
-        <DataGrid x:Name="AvailableCoursesDataGrid" Grid.Row="0" Grid.Column="1" Margin="10" AutoGenerateColumns="False" IsReadOnly="True">
+        <!--<DataGrid x:Name="AvailableCoursesDataGrid" Grid.Row="0" Grid.Column="1" Margin="10" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Course No" Binding="{Binding Cno}" Width="*" />
                 <DataGridTextColumn Header="Course Name" Binding="{Binding Cname}" Width="*" />
                 <DataGridTextColumn Header="Credits" Binding="{Binding Ccredit}" Width="*" />
+                <DataGridTextColumn Header="Teacher" Binding="{Binding Teacher}" Width="*" />
             </DataGrid.Columns>
-        </DataGrid>
-
+        </DataGrid>-->
+        <DataGrid x:Name="AvailableCoursesDataGrid" Grid.Row="0" Grid.Column="1" Margin="10" />
         <!-- Buttons -->
         <Button x:Name="SelectButton" Content="选择" Grid.Row="1" Grid.Column="1" Width="100" Height="30" Margin="120,10,10,10" HorizontalAlignment="Left" Click="SelectButton_Click"/>
         <Button x:Name="SearchButton" Content="搜索" Grid.Row="1" Grid.Column="1" Width="100" Height="30" Margin="10" HorizontalAlignment="Left" Click="SearchButton_Click"/>
         <Button x:Name="RemoveButton" Content="移除" Grid.Row="1" Grid.Column="0" Width="100" Height="30" Margin="10" HorizontalAlignment="Left" Click="RemoveButton_Click"/>
+
+        <!-- Search Box and ComboBox -->
+        <TextBox x:Name="SearchTextBox" Grid.Row="2" Grid.Column="1" Width="200" Height="30" Margin="10" HorizontalAlignment="Left"/>
+        <ComboBox x:Name="SearchComboBox" Grid.Row="2" Grid.Column="1" Width="100" Height="30" Margin="220,10,10,10" HorizontalAlignment="Left">
+            <ComboBoxItem Content="按课程名" IsSelected="True"/>
+            <ComboBoxItem Content="按教师名"/>
+        </ComboBox>
     </Grid>
 </Window>
