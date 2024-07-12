@@ -1,39 +1,106 @@
-﻿using System.Windows;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
+using static WpfAppAlpha.GradeEntryWindow;
 
 namespace WpfAppAlpha
 {
-    public partial class TeacherWindow : Window
+    public class RelayCommand : ICommand
+    {
+        private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
+
+        public RelayCommand(Action execute, Func<bool> canExecute = null)
+        {
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
+        }
+
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
+        public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
+
+        public void Execute(object parameter) => _execute();
+    }
+    public partial class TeacherWindow : Window, INotifyPropertyChanged
     {
         private SchoolContext _context;
-        private int Tno;
-        public TeacherWindow(int Tno)
+        private int _tno;
+        private ObservableCollection<CourseViewModel> _courses;
+
+        public ObservableCollection<CourseViewModel> Courses
+        {
+            get => _courses;
+            set
+            {
+                _courses = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand LoadCoursesCommand { get; private set; }
+        public ICommand OpenGradeEntryCommand { get; private set; }  // 新添加的命令
+
+        public TeacherWindow(int tno)
         {
             InitializeComponent();
-            
-            this.Tno = Tno;
-
-            LoadData();
+            _tno = tno;
+            DataContext = this;
+            _context = new SchoolContext();
+            LoadCoursesCommand = new RelayCommand(LoadCourses);
+            OpenGradeEntryCommand = new RelayCommand(OpenGradeEntryWindow);  // 初始化新命令
+            Courses = new ObservableCollection<CourseViewModel>();
         }
 
-        private void LoadData()
+        private void LoadCourses()
         {
-            _context = new SchoolContext();
-            _context.Course.Include(c => c.Teacher).Load();
-            _context.CourseSelect.Include(cs => cs.Course).ThenInclude(c => c.Teacher).Load();
-
-            CourseScheduleDataGrid.ItemsSource = _context.Course.Select(c => new
+            try
             {
-                c.Cno,
-                c.Cname,
-                c.Ctype,
-                c.Ccredit,
-                c.Cstatus,
-                c.Cterm,
-                c.Tno,
-                c.Teacher.Tname
-            }).Where(c => c.Tno == Tno).ToList();
+                var courses = _context.Course
+                    .Where(c => c.Tno == _tno)
+                    .Select(c => new CourseViewModel
+                    {
+                        Cno = c.Cno,
+                        Cname = c.Cname,
+                        Cstatus = c.Cstatus,
+                        Ccredit = c.Ccredit
+                    })
+                    .ToList();
 
+                Courses.Clear();
+                foreach (var course in courses)
+                {
+                    Courses.Add(course);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"加载课程时出错: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void OpenGradeEntryWindow()  // 新添加的方法
+        {
+            var gradeEntryWindow = new GradeEntryWindow(_tno);
+            gradeEntryWindow.ShowDialog();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
+    // CourseViewModel 和 RelayCommand 类保持不变
 }
