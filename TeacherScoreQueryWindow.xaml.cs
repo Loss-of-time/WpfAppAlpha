@@ -62,7 +62,6 @@ namespace WpfAppAlpha
             public float Ccredit { get; set; }
             public string Cstatus { get; set; }
             public int StudentCount { get; set; }
-            public float CSscore { get; set; }
         }
         private void LoadCourses()
         {
@@ -91,7 +90,7 @@ namespace WpfAppAlpha
                     Sno = cs.Sno,
                     Sname = cs.Student.Sname,
                     ClassId = cs.Student.MajorNo,  // Assuming MajorNo is used as ClassId
-                    Grade = cs.CSscore  // Assuming CSstatus is used to store the grade
+                    Grade = cs.CSstatus  // Assuming CSstatus is used to store the grade
                 })
                 .ToList();
 
@@ -115,7 +114,7 @@ namespace WpfAppAlpha
 
                     if (courseSelect != null)
                     {
-                        courseSelect.CSscore = student.Grade;
+                        courseSelect.CSstatus = student.Grade;
                     }
                 }
 
@@ -141,6 +140,6 @@ namespace WpfAppAlpha
         public int Sno { get; set; }
         public string Sname { get; set; }
         public int ClassId { get; set; }
-        public float Grade { get; set; }
+        public int Grade { get; set; }
     }
 }
