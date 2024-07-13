@@ -9,39 +9,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WpfAppAlpha
 {
-    public partial class TeacherWindow : Window, INotifyPropertyChanged
+    public partial class TeacherWindow : Window
     {
         private SchoolContext _context;
         private int _tno;
         private ObservableCollection<CourseViewModel> _courses;
         private ObservableCollection<CourseViewModel> _teachingTasks;
 
-        public ObservableCollection<CourseViewModel> Courses
-        {
-            get => _courses;
-            set
-            {
-                _courses = value;
-                OnPropertyChanged();
-            }
-        }
-        public ObservableCollection<CourseViewModel> TeachingTasks
-        {
-            get => _teachingTasks;
-            set
-            {
-                _teachingTasks = value;
-                OnPropertyChanged();
-            }
-        }
         public TeacherWindow(int tno)
         {
             InitializeComponent();
             _tno = tno;
             DataContext = this;
             _context = new SchoolContext();
-            Courses = new ObservableCollection<CourseViewModel>();
-            TeachingTasks = new ObservableCollection<CourseViewModel>();
             LoadCourses();
         }
 
@@ -59,12 +39,7 @@ namespace WpfAppAlpha
                         Ccredit = c.Ccredit
                     })
                     .ToList();
-
-                Courses.Clear();
-                foreach (var course in courses)
-                {
-                    Courses.Add(course);
-                }
+                CourseTeachingDataGrid.ItemsSource = courses;
             }
             catch (Exception ex)
             {
@@ -85,12 +60,8 @@ namespace WpfAppAlpha
                         Ccredit = c.Ccredit
                     })
                     .ToList();
+                TeachScheduleDataGrid.ItemsSource = openCourses;
 
-                TeachingTasks.Clear();
-                foreach (var course in openCourses)
-                {
-                    TeachingTasks.Add(course);
-                }
             }
             catch (Exception ex)
             {
@@ -103,14 +74,6 @@ namespace WpfAppAlpha
             var newWindow = new TeacherScoreQueryWindow(_tno);
             newWindow.Show();
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public class CourseViewModel
         {
             public int Cno { get; set; }
