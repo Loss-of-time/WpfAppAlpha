@@ -1,0 +1,29 @@
+    <Window x:Class="WpfAppAlpha.TeacherCourseApplyWindow"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:local="clr-namespace:WpfAppAlpha"
+            mc:Ignorable="d"
+            Title="TeacherCourseApplyWindow" Height="600" Width="400">
+        <Grid>
+            <StackPanel Margin="10">
+                <TextBlock Text="Course Name:" Margin="5"/>
+                <TextBox x:Name="CourseNameTextBox" Margin="5"/>
+                
+                <TextBlock Text="Major:" Margin="5"/>
+                <ComboBox x:Name="MajorComboBox" Margin="5"/>
+                
+                <TextBlock Text="Course Type:" Margin="5"/>
+                <TextBox x:Name="CourseTypeTextBox" Margin="5"/>
+                
+                <TextBlock Text="Course Credit:" Margin="5"/>
+                <TextBox x:Name="CourseCreditTextBox" Margin="5"/>
+                
+                <TextBlock Text="Course Term:" Margin="5"/>
+                <TextBox x:Name="CourseTermTextBox" Margin="5"/>
+                
+                <Button Content="Apply" Margin="5" Click="ApplyButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Window>

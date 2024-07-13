@@ -86,6 +86,10 @@ public class SchoolContext : DbContext
         modelBuilder.Entity<Course>()
             .ToTable("Course") // Map Course entity to Course table
             .HasKey(c => c.Cno);
+        
+        modelBuilder.Entity<Course>()
+            .Property(c => c.Cno)
+            .ValueGeneratedOnAdd(); // Add this line to indicate auto-increment
 
         modelBuilder.Entity<CourseSelect>()
             .ToTable("CourseSelect") // Map CourseSelect entity to CourseSelect table
@@ -116,7 +120,5 @@ public class SchoolContext : DbContext
             .HasOne(cs => cs.Student)
             .WithMany(s => s.CourseSelects)
             .HasForeignKey(cs => cs.Sno);
-
-        // Configure other properties if needed
     }
 }

@@ -18,7 +18,6 @@ namespace WpfAppAlpha
         {
             InitializeComponent();
             _tno = tno;
-            DataContext = this;
             _context = new SchoolContext();
             LoadCourses();
         }
@@ -72,6 +71,18 @@ namespace WpfAppAlpha
             var newWindow = new TeacherScoreQueryWindow(_tno);
             newWindow.Show();
         }
+        
+        private void CourseApplyButton_Click(object sender, RoutedEventArgs e)
+        {
+            var newWindow = new TeacherCourseApplyWindow(_tno);
+            newWindow.Show();
+        }
+
+        private void UpdateCourseButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoadCourses();
+        }
+        
         public class CourseViewModel
         {
             public int Cno { get; set; }
