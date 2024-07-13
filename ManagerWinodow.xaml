@@ -12,6 +12,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <TreeView x:Name="TreeViewData" Grid.Column="0" SelectedItemChanged="TreeViewData_SelectedItemChanged"/>
-        <DataGrid x:Name="DataGridData" Grid.Column="1"/>
+        <DataGrid x:Name="DataGridData" Grid.Column="1" MouseDoubleClick="DataGridData_MouseDoubleClick"/>
+
     </Grid>
 </Window>
