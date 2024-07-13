@@ -13,8 +13,6 @@ namespace WpfAppAlpha
     {
         private SchoolContext _context;
         private int _tno;
-        private ObservableCollection<CourseViewModel> _courses;
-        private ObservableCollection<CourseViewModel> _teachingTasks;
 
         public TeacherWindow(int tno)
         {
@@ -82,6 +80,4 @@ namespace WpfAppAlpha
             public float Ccredit { get; set; }
         }
     }
-
-    // CourseViewModel 和 RelayCommand 类保持不变
 }
