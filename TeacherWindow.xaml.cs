@@ -56,7 +56,7 @@ namespace WpfAppAlpha
             }
         }
         public ICommand LoadCoursesCommand { get; private set; }
-        public ICommand OpenGradeEntryCommand { get; private set; }  // 新添加的命令
+        public ICommand OpenTeacherScoreQueryWindowCommand { get; private set; }  // 新添加的命令
         public ICommand LoadTeachingTasksCommand { get; private set; }
         public TeacherWindow(int tno)
         {
@@ -65,7 +65,7 @@ namespace WpfAppAlpha
             DataContext = this;
             _context = new SchoolContext();
             LoadCoursesCommand = new RelayCommand(LoadCourses);
-            OpenGradeEntryCommand = new RelayCommand(OpenGradeEntryWindow);  // 初始化新命令
+            OpenTeacherScoreQueryWindowCommand = new RelayCommand(OpenGradeEntryWindow);  // 初始化新命令
             LoadTeachingTasksCommand = new RelayCommand(LoadTeachingTasks);
             Courses = new ObservableCollection<CourseViewModel>();
             TeachingTasks = new ObservableCollection<CourseViewModel>();
