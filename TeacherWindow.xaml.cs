@@ -9,27 +9,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WpfAppAlpha
 {
-    public class RelayCommand : ICommand
-    {
-        private readonly Action _execute;
-        private readonly Func<bool> _canExecute;
-
-        public RelayCommand(Action execute, Func<bool> canExecute = null)
-        {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            _canExecute = canExecute;
-        }
-
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-
-        public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
-
-        public void Execute(object parameter) => _execute();
-    }
     public partial class TeacherWindow : Window, INotifyPropertyChanged
     {
         private SchoolContext _context;
@@ -55,18 +34,12 @@ namespace WpfAppAlpha
                 OnPropertyChanged();
             }
         }
-        public ICommand LoadCoursesCommand { get; private set; }
-        public ICommand OpenTeacherScoreQueryWindowCommand { get; private set; }  // 新添加的命令
-        public ICommand LoadTeachingTasksCommand { get; private set; }
         public TeacherWindow(int tno)
         {
             InitializeComponent();
             _tno = tno;
             DataContext = this;
             _context = new SchoolContext();
-            LoadCoursesCommand = new RelayCommand(LoadCourses);
-            OpenTeacherScoreQueryWindowCommand = new RelayCommand(OpenGradeEntryWindow);  // 初始化新命令
-            LoadTeachingTasksCommand = new RelayCommand(LoadTeachingTasks);
             Courses = new ObservableCollection<CourseViewModel>();
             TeachingTasks = new ObservableCollection<CourseViewModel>();
             LoadCourses();
@@ -98,7 +71,7 @@ namespace WpfAppAlpha
                 MessageBox.Show($"加载课程时出错: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        private void LoadTeachingTasks()
+        public void CourseTasksButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -125,10 +98,10 @@ namespace WpfAppAlpha
             }
         }
         
-        private void OpenGradeEntryWindow()  // 新添加的方法
+        private void ScoreQueryButton_Click(object sender, RoutedEventArgs e) 
         {
-            var gradeEntryWindow = new TeacherScoreQueryWindow(_tno);
-            gradeEntryWindow.ShowDialog();
+            var newWindow = new TeacherScoreQueryWindow(_tno);
+            newWindow.Show();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
