@@ -40,15 +40,15 @@
         <StackPanel Grid.Column="2" Margin="10">
             <TextBlock Text="我的教学任务" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
             <TextBlock Text="本周教学任务如下：" Margin="0,10,0,10"/>
-            <DataGrid Name="TeachingTasksDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
+            <DataGrid ItemsSource="{Binding TeachingTasks}" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,10,0,0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="课程号" Binding="{Binding Cno}" Width="*"/>
                     <DataGridTextColumn Header="课程名" Binding="{Binding Cname}" Width="*"/>
                     <DataGridTextColumn Header="状态" Binding="{Binding Cstatus}" Width="*"/>
-                    <DataGridTextColumn Header="时间" Binding="{Binding Time}" Width="*"/>
+                    <DataGridTextColumn Header="学分" Binding="{Binding Ccredit}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Content="点击查询" Width="100" Height="30" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+            <Button Content="点击查询" Width="100" Height="45" Command="{Binding LoadTeachingTasksCommand}" Margin="0,10,0,0"/>
         </StackPanel>
         <!-- Bottom Panel -->
         <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="10">
