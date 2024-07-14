@@ -13,12 +13,23 @@
         <TabControl>
             <TabItem Header="学生管理">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TreeView x:Name="TreeViewData" Grid.Column="0" SelectedItemChanged="TreeViewData_SelectedItemChanged"/>
-                    <DataGrid x:Name="StudentDataGridData" Grid.Column="1" MouseDoubleClick="StudentDataGridData_MouseDoubleClick"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
+                        <Button Content="添加学生" Click="AddStudentButton_Click" Margin="0,0,10,0"/>
+                        <Button Content="删除选中学生" Click="DeleteStudentButton_Click"/>
+                    </StackPanel>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TreeView x:Name="TreeViewData" Grid.Column="0" SelectedItemChanged="TreeViewData_SelectedItemChanged"/>
+                        <DataGrid x:Name="StudentDataGridData" Grid.Column="1" MouseDoubleClick="StudentDataGridData_MouseDoubleClick"/>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="教师管理">

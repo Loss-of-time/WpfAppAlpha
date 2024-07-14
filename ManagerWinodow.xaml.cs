@@ -21,6 +21,7 @@ namespace WpfAppAlpha
         private void LoadTreeViewData()
         {
             var majors = _context.Major.ToList();
+            TreeViewData.Items.Clear();
             foreach (var major in majors)
             {
                 var majorNode = new TreeViewItem { Header = major.MajorName, Tag = "Major_" + major.MajorNo };
@@ -72,7 +73,7 @@ namespace WpfAppAlpha
             if (editWindow.ShowDialog() == true)
             {
                 _context.SaveChanges();
-                RefreshDataGrid();
+                RefreshStudentDataGrid();
             }
         }
 
@@ -84,6 +85,36 @@ namespace WpfAppAlpha
             {
                 _context.SaveChanges();
                 LoadTeacherData(); // Refresh the teacher data grid after editing
+            }
+        }
+        private void AddStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            var newStudent = new Student();
+            var editWindow = new ManagerEditStudentWindow(newStudent);
+            if (editWindow.ShowDialog() == true)
+            {
+                _context.Student.Add(newStudent);
+                _context.SaveChanges();
+                RefreshStudentDataGrid(); // Refresh the student data grid after adding
+                LoadTreeViewData(); // Refresh TreeView to include the new student
+            }
+        }
+
+        private void DeleteStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (StudentDataGridData.SelectedItem is not Student selectedStudent) return;
+            var result = MessageBox.Show($"确定要删除学生 {selectedStudent.Sname} 吗？", "确认删除", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                // 删除选课记录
+                var courseSelections = _context.CourseSelect.Where(cs => cs.Sno == selectedStudent.Sno).ToList();
+                _context.CourseSelect.RemoveRange(courseSelections);
+
+                // 删除学生
+                _context.Student.Remove(selectedStudent);
+                _context.SaveChanges();
+                RefreshStudentDataGrid(); // Refresh the student data grid after deleting
+                LoadTreeViewData(); // Refresh TreeView to remove the deleted student
             }
         }
 
@@ -112,20 +143,27 @@ namespace WpfAppAlpha
         }
 
         // 刷新 DataGrid 的数据
-        private void RefreshDataGrid()
+        // 刷新学生 DataGrid 的数据
+        private void RefreshStudentDataGrid()
         {
             if (TreeViewData.SelectedItem is not TreeViewItem selectedItem) return;
             if (selectedItem.Tag is not string tag) return;
-            if (!tag.StartsWith("Student_")) return;
-
-            if (!int.TryParse(tag[8..], out var sno)) return;
-
-            var courses = (from s in _context.Student
-                           where s.Sno == sno
-                           join cs in _context.CourseSelect on s.Sno equals cs.Sno
-                           join c in _context.Course on cs.Cno equals c.Cno
-                           select c).ToList();
-            StudentDataGridData.ItemsSource = courses;
+            if (tag.StartsWith("Major_"))
+            {
+                if (!int.TryParse(tag.AsSpan(6), out var majorNo)) return;
+                var students = _context.Student.Where(s => s.MajorNo == majorNo).ToList();
+                StudentDataGridData.ItemsSource = students;
+            }
+            else if (tag.StartsWith("Student_"))
+            {
+                if (!int.TryParse(tag[8..], out var sno)) return;
+                var courses = (from s in _context.Student
+                               where s.Sno == sno
+                               join cs in _context.CourseSelect on s.Sno equals cs.Sno
+                               join c in _context.Course on cs.Cno equals c.Cno
+                               select c).ToList();
+                StudentDataGridData.ItemsSource = courses;
+            }
         }
     }
 }
