@@ -16,6 +16,7 @@ namespace WpfAppAlpha
             _context = new SchoolContext();
             LoadTreeViewData();
             LoadTeacherData();
+            LoadCourseData();
         }
 
         private void LoadTreeViewData()
@@ -40,6 +41,12 @@ namespace WpfAppAlpha
         {
             var teachers = _context.Teacher.ToList();
             TeacherDataGridData.ItemsSource = teachers;
+        }
+
+        private void LoadCourseData()
+        {
+            var courses = _context.Course.ToList();
+            CourseDataGridData.ItemsSource = courses;
         }
 
         private void TreeViewData_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -87,6 +94,18 @@ namespace WpfAppAlpha
                 LoadTeacherData(); // Refresh the teacher data grid after editing
             }
         }
+
+        private void CourseDataGridData_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (CourseDataGridData.SelectedItem is not Course selectedCourse) return;
+            var editWindow = new ManagerEditCourseWindow(selectedCourse);
+            if (editWindow.ShowDialog() == true)
+            {
+                _context.SaveChanges();
+                LoadCourseData(); // Refresh the course data grid after editing
+            }
+        }
+
         private void AddStudentButton_Click(object sender, RoutedEventArgs e)
         {
             var newStudent = new Student();
@@ -143,17 +162,45 @@ namespace WpfAppAlpha
                     var courseSelections = _context.CourseSelect.Where(cs => cs.Cno == course.Cno).ToList();
                     _context.CourseSelect.RemoveRange(courseSelections);
                 }
-                
+
                 // 删除所有课程
                 _context.Course.RemoveRange(courses);
-                
+
                 _context.Teacher.Remove(selectedTeacher);
                 _context.SaveChanges();
                 LoadTeacherData(); // Refresh the teacher data grid after deleting
             }
         }
 
-        // 刷新 DataGrid 的数据
+        private void AddCourseButton_Click(object sender, RoutedEventArgs e)
+        {
+            var newCourse = new Course();
+            var editWindow = new ManagerEditCourseWindow(newCourse);
+            if (editWindow.ShowDialog() == true)
+            {
+                _context.Course.Add(newCourse);
+                _context.SaveChanges();
+                LoadCourseData(); // Refresh the course data grid after adding
+            }
+        }
+
+        private void DeleteCourseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CourseDataGridData.SelectedItem is not Course selectedCourse) return;
+            var result = MessageBox.Show($"确定要删除课程 {selectedCourse.Cname} 吗？", "确认删除", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                // 删除选课记录
+                var courseSelections = _context.CourseSelect.Where(cs => cs.Cno == selectedCourse.Cno).ToList();
+                _context.CourseSelect.RemoveRange(courseSelections);
+
+                // 删除课程
+                _context.Course.Remove(selectedCourse);
+                _context.SaveChanges();
+                LoadCourseData(); // Refresh the course data grid after deleting
+            }
+        }
+
         // 刷新学生 DataGrid 的数据
         private void RefreshStudentDataGrid()
         {

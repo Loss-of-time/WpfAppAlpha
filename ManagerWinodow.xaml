@@ -53,7 +53,28 @@
                 </Grid>
             </TabItem>
             <TabItem Header="课程管理">
-                <!-- TODO -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
+                        <Button Content="添加课程" Click="AddCourseButton_Click" Margin="0,0,10,0"/>
+                        <Button Content="删除选中课程" Click="DeleteCourseButton_Click"/>
+                    </StackPanel>
+                    <DataGrid x:Name="CourseDataGridData" Grid.Row="1" AutoGenerateColumns="False" MouseDoubleClick="CourseDataGridData_MouseDoubleClick">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Course No" Binding="{Binding Cno}" Width="*"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Cname}" Width="*"/>
+                            <DataGridTextColumn Header="Major No" Binding="{Binding MajorNo}" Width="*"/>
+                            <DataGridTextColumn Header="Teacher No" Binding="{Binding Tno}" Width="*"/>
+                            <DataGridTextColumn Header="Type" Binding="{Binding Ctype}" Width="*"/>
+                            <DataGridTextColumn Header="Credit" Binding="{Binding Ccredit}" Width="*"/>
+                            <DataGridTextColumn Header="Status" Binding="{Binding Cstatus}" Width="*"/>
+                            <DataGridTextColumn Header="Term" Binding="{Binding Cterm}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>
