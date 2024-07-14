@@ -7,12 +7,34 @@
         mc:Ignorable="d"
         Title="ManagerWindow" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <TreeView x:Name="TreeViewData" Grid.Column="0" SelectedItemChanged="TreeViewData_SelectedItemChanged"/>
-        <DataGrid x:Name="DataGridData" Grid.Column="1" MouseDoubleClick="DataGridData_MouseDoubleClick"/>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Header="学生管理">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TreeView x:Name="TreeViewData" Grid.Column="0" SelectedItemChanged="TreeViewData_SelectedItemChanged"/>
+                    <DataGrid x:Name="StudentDataGridData" Grid.Column="1" MouseDoubleClick="StudentDataGridData_MouseDoubleClick"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="教师管理">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="TeacherDataGridData" AutoGenerateColumns="False" MouseDoubleClick="TeacherDataGridData_MouseDoubleClick">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Teacher No" Binding="{Binding Tno}" Width="*"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Tname}" Width="*"/>
+                            <DataGridTextColumn Header="Sex" Binding="{Binding Tsex}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
