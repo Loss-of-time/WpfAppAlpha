@@ -52,6 +52,9 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
+            <TabItem Header="课程管理">
+                <!-- TODO -->
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

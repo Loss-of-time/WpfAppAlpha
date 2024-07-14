@@ -136,6 +136,17 @@ namespace WpfAppAlpha
             var result = MessageBox.Show($"确定要删除教师 {selectedTeacher.Tname} 吗？", "确认删除", MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (result == MessageBoxResult.Yes)
             {
+                // 删除所有教授的课程的选课
+                var courses = _context.Course.Where(c => c.Tno == selectedTeacher.Tno).ToList();
+                foreach (var course in courses)
+                {
+                    var courseSelections = _context.CourseSelect.Where(cs => cs.Cno == course.Cno).ToList();
+                    _context.CourseSelect.RemoveRange(courseSelections);
+                }
+                
+                // 删除所有课程
+                _context.Course.RemoveRange(courses);
+                
                 _context.Teacher.Remove(selectedTeacher);
                 _context.SaveChanges();
                 LoadTeacherData(); // Refresh the teacher data grid after deleting
