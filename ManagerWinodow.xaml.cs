@@ -87,6 +87,30 @@ namespace WpfAppAlpha
             }
         }
 
+        private void AddTeacherButton_Click(object sender, RoutedEventArgs e)
+        {
+            var newTeacher = new Teacher();
+            var editWindow = new ManagerEditTeacherWindow(newTeacher);
+            if (editWindow.ShowDialog() == true)
+            {
+                _context.Teacher.Add(newTeacher);
+                _context.SaveChanges();
+                LoadTeacherData(); // Refresh the teacher data grid after adding
+            }
+        }
+
+        private void DeleteTeacherButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (TeacherDataGridData.SelectedItem is not Teacher selectedTeacher) return;
+            var result = MessageBox.Show($"确定要删除教师 {selectedTeacher.Tname} 吗？", "确认删除", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                _context.Teacher.Remove(selectedTeacher);
+                _context.SaveChanges();
+                LoadTeacherData(); // Refresh the teacher data grid after deleting
+            }
+        }
+
         // 刷新 DataGrid 的数据
         private void RefreshDataGrid()
         {

@@ -15,7 +15,7 @@ namespace WpfAppAlpha
             TextBoxPassword.Text = _teacher.Tpassword;
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        public void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             _teacher.Tname = TextBoxName.Text;
             _teacher.Tsex = TextBoxSex.Text;

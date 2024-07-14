@@ -23,10 +23,16 @@
             </TabItem>
             <TabItem Header="教师管理">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="TeacherDataGridData" AutoGenerateColumns="False" MouseDoubleClick="TeacherDataGridData_MouseDoubleClick">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
+                        <Button Content="添加教师" Click="AddTeacherButton_Click" Margin="0,0,10,0"/>
+                        <Button Content="删除选中教师" Click="DeleteTeacherButton_Click"/>
+                    </StackPanel>
+                    <DataGrid x:Name="TeacherDataGridData" Grid.Row="2" AutoGenerateColumns="False" MouseDoubleClick="TeacherDataGridData_MouseDoubleClick">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Teacher No" Binding="{Binding Tno}" Width="*"/>
                             <DataGridTextColumn Header="Name" Binding="{Binding Tname}" Width="*"/>
