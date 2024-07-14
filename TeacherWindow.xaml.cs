@@ -1,10 +1,6 @@
 using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
 
 namespace WpfAppAlpha
@@ -43,6 +39,7 @@ namespace WpfAppAlpha
                 MessageBox.Show($"加载课程时出错: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         public void CourseTasksButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -58,20 +55,19 @@ namespace WpfAppAlpha
                     })
                     .ToList();
                 TeachScheduleDataGrid.ItemsSource = openCourses;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"加载教学任务时出错: {ex.Message}", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        
+
         private void ScoreQueryButton_Click(object sender, RoutedEventArgs e) 
         {
             var newWindow = new TeacherScoreQueryWindow(_tno);
             newWindow.Show();
         }
-        
+
         private void CourseApplyButton_Click(object sender, RoutedEventArgs e)
         {
             var newWindow = new TeacherCourseApplyWindow(_tno);
@@ -82,7 +78,21 @@ namespace WpfAppAlpha
         {
             LoadCourses();
         }
-        
+
+        private void PersonalInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var teacher = _context.Teacher.FirstOrDefault(t => t.Tno == _tno);
+            if (teacher != null)
+            {
+                var infoWindow = new TeacherInfoWindow(teacher);
+                infoWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("未找到该教师的信息", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         public class CourseViewModel
         {
             public int Cno { get; set; }

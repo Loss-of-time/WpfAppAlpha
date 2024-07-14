@@ -18,8 +18,8 @@
             <TextBlock Text="学生界面" FontWeight="Bold" FontSize="20" Margin="0,0,0,20"/>
             <Button Name="CourseSelectButton" Content="选课系统" Width="150" Height="50" Margin="0,0,0,10" Click="CourseSelectButton_Click"/>
             <Button Name="CourseQueryButton" Content="课程查询" Width="150" Height="50" HorizontalAlignment="Center" Margin="0,0,0,10" Click="CourseQueryButton_Click"/>
-            <Button Content="成绩查询" Width="150" Height="50" Margin="0,0,0,10" Click="ScoreQueryButton_Click"/>
-            <Button Content="个人信息" Width="150" Height="50" Margin="0,0,0,10"/>
+            <Button Name="ScoreQueryButton" Content="成绩查询" Width="150" Height="50" Margin="0,0,0,10" Click="ScoreQueryButton_Click"/>
+            <Button Name="PersonalInfoButton" Content="个人信息" Width="150" Height="50" Margin="0,0,0,10" Click="PersonalInfoButton_Click"/>
         </StackPanel>
 
         <!-- Center Panel -->

@@ -21,7 +21,7 @@
             <TextBlock Text="我的课程管理" FontWeight="Bold" FontSize="16" Margin="0,0,0,20"/>
             <Button Name="CourseApplyButton" Content="新课开课申请" Width="150" Height="50" Margin="0,0,0,10" Click="CourseApplyButton_Click"/>
             <Button Name="ScoreQueryButton" Content="成绩录入系统" Width="150" Height="50" Margin="0,0,0,10" Click="ScoreQueryButton_Click"/>
-            <Button Content="个人信息" Width="150" Height="50" Margin="0,20,0,10"/>
+            <Button Name="PersonalInfoButton" Content="个人信息" Width="150" Height="50" Margin="0,20,0,10" Click="PersonalInfoButton_Click"/>
             <Button Name="UpdateCourseButton" Content="更新课程" Width="150" Height="50" Margin="0,0,0,10" Click="UpdateCourseButton_Click"/>
         </StackPanel>
         <!-- Center Panel -->
