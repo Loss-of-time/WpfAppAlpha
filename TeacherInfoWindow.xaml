@@ -8,10 +8,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Margin="10">
-            <StackPanel Margin="5">
-                <TextBlock Text="教师编号" Foreground="Gray"/>
-                <TextBox x:Name="TextBoxTno" IsReadOnly="True"/>
-            </StackPanel>
+            <StackPanel Margin="5"/>
             <StackPanel Margin="5">
                 <TextBlock Text="姓名" Foreground="Gray"/>
                 <TextBox x:Name="TextBoxName"/>

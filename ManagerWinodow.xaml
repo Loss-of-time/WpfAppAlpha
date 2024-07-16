@@ -24,11 +24,12 @@
                     </StackPanel>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="46.283"/>
+                            <ColumnDefinition Width="153.717"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TreeView x:Name="TreeViewData" Grid.Column="0" SelectedItemChanged="TreeViewData_SelectedItemChanged"/>
-                        <DataGrid x:Name="StudentDataGridData" Grid.Column="1" MouseDoubleClick="StudentDataGridData_MouseDoubleClick"/>
+                        <TreeView x:Name="TreeViewData" Grid.Column="0" SelectedItemChanged="TreeViewData_SelectedItemChanged" Grid.ColumnSpan="2"/>
+                        <DataGrid x:Name="StudentDataGridData" Grid.Column="2" MouseDoubleClick="StudentDataGridData_MouseDoubleClick"/>
                     </Grid>
                 </Grid>
             </TabItem>
