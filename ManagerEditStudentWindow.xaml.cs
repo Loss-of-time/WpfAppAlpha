@@ -18,7 +18,6 @@ namespace WpfAppAlpha
             ComboBoxMajor.ItemsSource = _context.Major.ToList();
 
             // 设置控件的初始值
-            TextBoxSno.Text = student.Sno.ToString();
             TextBoxName.Text = student.Sname;
             TextBoxSex.Text = student.Ssex;
             TextBoxHome.Text = student.Shome;

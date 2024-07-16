@@ -14,7 +14,6 @@ namespace WpfAppAlpha
             Teacher = teacher;
 
             // 设置控件的初始值
-            TextBoxTno.Text = teacher.Tno.ToString();
             TextBoxName.Text = teacher.Tname;
             TextBoxSex.Text = teacher.Tsex;
             TextBoxPassword.Password = teacher.Tpassword;

@@ -19,7 +19,6 @@ namespace WpfAppAlpha
             ComboBoxTeacher.ItemsSource = _context.Teacher.ToList();
 
             // 设置控件的初始值
-            TextBoxCno.Text = course.Cno.ToString();
             TextBoxName.Text = course.Cname;
             ComboBoxMajor.SelectedValue = course.MajorNo;
             ComboBoxTeacher.SelectedValue = course.Tno;
