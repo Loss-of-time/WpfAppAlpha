@@ -1,9 +1,5 @@
 # WpfAppAlpha - 教学信息管理系统
 
-## TODO
-
-1. 将注释、TextLabel替换为中文
-
 ## 教学管理信息系统文档
 
 ### 功能概述
@@ -79,6 +75,8 @@
     - `Sno`：学生编号（外键）
     - `CSstatus`：选课状态
     - `CSscore`：成绩
+
+<img width="229" alt="39a303f0cfde58fb0f34f6c4075a82a" src="https://github.com/user-attachments/assets/6475ec2a-d9e1-4676-9441-6649f6f2e2d6">
 
 ### 使用说明
 
