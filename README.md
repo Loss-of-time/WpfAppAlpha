@@ -13,6 +13,8 @@
 
 ### 页面设计
 
+<img width="223" alt="2024-07-17-14-53-46" src="https://github.com/user-attachments/assets/f0f50dd6-ac9d-4aef-9035-bf4e06baf54a">
+
 #### 1. 登录页面
 
 用户可以选择身份（学生、教师、管理员），并输入用户名和密码进行登录。
@@ -38,6 +40,8 @@
 管理员可以管理学生、教师和课程信息。
 
 ### 数据库设计
+
+<img width="229" alt="39a303f0cfde58fb0f34f6c4075a82a" src="https://github.com/user-attachments/assets/6475ec2a-d9e1-4676-9441-6649f6f2e2d6">
 
 数据库设计包括以下几张表：
 
@@ -76,9 +80,9 @@
     - `CSstatus`：选课状态
     - `CSscore`：成绩
 
-<img width="229" alt="39a303f0cfde58fb0f34f6c4075a82a" src="https://github.com/user-attachments/assets/6475ec2a-d9e1-4676-9441-6649f6f2e2d6">
-
 ### 使用说明
+
+![image](https://github.com/user-attachments/assets/006beb05-5016-4b41-b010-47ef19bc4a71)
 
 1. **启动应用程序**：运行主程序文件启动应用。
 2. **登录系统**：
