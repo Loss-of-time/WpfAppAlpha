@@ -46,18 +46,18 @@ namespace WpfAppAlpha
 
             var selectedCourseIds = selectedCourses.Select(c => c.Cno).ToList();
 
-            var availableCourses = (from cs in _context.CourseSelect
-                join c in _context.Course on cs.Cno equals c.Cno
-                join t in _context.Teacher on c.Tno equals t.Tno
-                where !selectedCourseIds.Contains(c.Cno)
-                select new CourseView
-                {
-                    Cno = c.Cno,
-                    Cname = c.Cname,
-                    Ccredit = c.Ccredit,
-                    Tname = t.Tname,
-                }).ToList();
-
+            var availableCourses = (from c in _context.Course
+                                    where c.Cstatus == "已开课" 
+                                    join t in _context.Teacher on c.Tno equals t.Tno
+                                    where !selectedCourseIds.Contains(c.Cno)
+                                    select new CourseView
+                                    {
+                                        Cno = c.Cno,
+                                        Cname = c.Cname,
+                                        Ccredit = c.Ccredit,
+                                        Tname = t.Tname,
+                                    }).ToList();
+            
             SelectedCoursesDataGrid.ItemsSource = selectedCourses;
             AvailableCoursesDataGrid.ItemsSource = availableCourses;
         }
@@ -94,29 +94,23 @@ namespace WpfAppAlpha
             string searchText = SearchTextBox.Text;
             string? searchType = (SearchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
 
-            //var selectedCourses = _context.CourseSelect
-            //    .Include(cs => cs.Course)
-            //    .ThenInclude(c => c.Teacher)
-            //    .Where(cs => cs.Sno == Sno)
-            //    .Select(cs => cs.Course)
-            //    .ToList();
             var selectedCourseIds = (from cs in _context.CourseSelect
                                    join c in _context.Course on cs.Cno equals c.Cno
                                    where cs.Sno == Sno
                                    select c.Cno
                                    ).ToList();
 
-            var availableCoursesQuery = (from cs in _context.CourseSelect
-                                         join c in _context.Course on cs.Cno equals c.Cno
-                                         join t in _context.Teacher on c.Tno equals t.Tno
-                                         where !selectedCourseIds.Contains(c.Cno)
-                                         select new CourseView
-                                         {
-                                             Cno = c.Cno,
-                                             Cname = c.Cname,
-                                             Ccredit = c.Ccredit,
-                                             Tname = t.Tname,
-                                         }).ToList();
+            var availableCoursesQuery = (from c in _context.Course
+                where c.Cstatus == "已开课" 
+                join t in _context.Teacher on c.Tno equals t.Tno
+                where !selectedCourseIds.Contains(c.Cno)
+                select new CourseView
+                {
+                    Cno = c.Cno,
+                    Cname = c.Cname,
+                    Ccredit = c.Ccredit,
+                    Tname = t.Tname,
+                });
 
             if (string.IsNullOrWhiteSpace(searchText))
             {
